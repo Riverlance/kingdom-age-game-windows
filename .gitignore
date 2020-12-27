@@ -3,10 +3,12 @@
 ## Kingdom Age
 #################
 
-bin/
 desktop.ini
 otclient.exp
 otclient.lib
+bin/
+config/
+config.otml
 vc12/otclient.sln
 vc12/otclient.vcxproj*
 vc14_dx9/otclient.VC.db
@@ -21,12 +23,6 @@ vc14_ogl/otclient.VC.VC.opendb
 vc14_ogl/kingdomageclient.VC.db
 vc14_ogl/kingdomageclient.VC.opendb
 vc14_ogl/kingdomageclient.VC.VC.opendb
-*.exe
-!/game_directx9/*.exe
-!/game_opengl/*.exe
-*.dll
-!/game_directx9/*.dll
-!/game_opengl/*.dll
 Kingdom Age Online.exp
 Kingdom Age Online.lib
 *.lnk
@@ -65,8 +61,6 @@ CMakeLists.txt.user*
 *.pic
 .lvimrc
 .clang_complete
-config/
-config.otml
 /modules/otclientrc.lua
 /doc
 !.gitignore
@@ -93,7 +87,6 @@ modules/.project/modules.sublime-workspace
 
 # Build results
 
-.vs/
 [Dd]ebug/
 [Rr]elease/
 x64/
