@@ -1,0 +1,52 @@
+Module
+  name: game_interface
+  description: Create the game interface, where the ingame stuff starts
+  author: OTClient team
+  website: https://github.com/edubart/otclient
+  sandboxed: true
+  scripts: [ widgets/uigamemap, widgets/uiitem, interface ]
+  dependencies: [ client_topmenu, client_background, client_options ]
+  @onLoad: GameInterface.init()
+  @onUnload: GameInterface.terminate()
+
+  load-later:
+    // Base
+    - game_things
+    - game_shaders
+    - game_textmessage
+    - game_modaldialog
+    - ka_game_screenimage
+    - ka_game_hotkeybars
+    - ka_game_lootbar
+    - ka_game_blinkhit
+    - ka_game_ui
+
+    // Base windows
+    - game_textwindow
+    - game_npctrade
+    - game_playertrade
+    - game_playermount
+    - game_playerdeath
+    - game_outfit
+
+    // Windows
+    - game_containers
+    - game_console
+    - game_ruleviolation
+
+    // Top menu left buttons
+    - game_bugreport
+    - game_hotkeys
+    - game_questlog
+
+    // Top menu right buttons (mini windows)
+    - game_character
+    - game_skills
+    - ka_game_attributes
+    - ka_game_powers
+    - ka_game_conditions
+    - game_battlelist
+    - ka_game_partylist
+    - game_unjustifiedpoints
+    - game_minimap
+    - game_viplist

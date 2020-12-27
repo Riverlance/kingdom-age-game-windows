@@ -1,0 +1,35 @@
+PartyLevelCalculatorWindow < MainWindow
+  id: partyLevelCalculatorWindow
+  !text: tr('Party Level Calculator')
+  size: 250 150
+  @onEscape: |
+    GamePartyList.partyLevelCalculatorWindowHide()
+
+  TextEdit
+    id: levelTextEdit
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+    max-length: 5
+    @onTextChange: GamePartyList.onLevelTextEditChange(self)
+
+  Label
+    id: levelLabel
+    !tooltip: tr('Type a level for calculate the required level range\nto be able to enable the shared experience in party.')
+    text-wrap: true
+    text-auto-resize: true
+    color: #f2af4eff
+    phantom: false
+    anchors.top: prev.outsideBottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+
+  Button
+    id: closeButton
+    !text: tr('Close')
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    width: 80
+    @onClick: |
+      GamePartyList.partyLevelCalculatorWindowHide()

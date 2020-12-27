@@ -1,0 +1,93 @@
+CreatureButtonMinimapWidget < UIWidget
+  size: 20 36
+  &isCreatureButtonMinimapWidget: true
+  // To remove button on logout
+  &temporary: true
+  // Maximum possible since zoom is from -5 to 5
+  &maxZoom: -5
+
+  UICreature
+    id: creature
+    size: 20 20
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    background-color: #ffffff88
+    // phantom: true
+
+  Label
+    id: titleLabel
+    text-wrap: true
+    text-auto-resize: true
+    text-align: center
+    font: verdana-8px-antialised
+    color: #000000
+    anchors.top: prev.outsideBottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    background-color: #ffffff88
+    // phantom: true
+
+CreatureButtonIcon < UIWidget
+  width: 11
+  height: 11
+  anchors.top: parent.top
+  anchors.right: prev.outsideLeft
+  margin-right: 2
+  phantom: true
+  on: false
+
+  $!on:
+    width: 0
+    margin-right: 0
+
+CreatureButtonProgressBar < UIProgressBar
+  height: 5
+  background-area-color: black
+  background-padding: 1
+  border: 1 black
+  margin-top: 1
+  margin-bottom: 0
+  phantom: true
+
+CreatureButton < UICreatureButton
+  height: 20
+  margin-bottom: 4
+
+  UICreature
+    id: creature
+    size: 20 20
+    anchors.top: parent.top
+    anchors.left: parent.left
+    phantom: true
+
+  Label
+    id: label
+    anchors.top: prev.top
+    anchors.left: prev.outsideRight
+    anchors.right: creatureType.outsideLeft
+    margin-left: 2
+    margin-right: 2
+    color: darkTeal
+    phantom: true
+
+  CreatureButtonIcon
+    id: specialIcon
+    anchors.right: parent.right
+
+  CreatureButtonIcon
+    id: emblem
+
+  CreatureButtonIcon
+    id: skull
+
+  CreatureButtonIcon
+    id: shield
+
+  CreatureButtonIcon
+    id: creatureType
+
+  CreatureButtonProgressBar
+    id: healthBar
+    anchors.top: label.outsideBottom
+    anchors.left: creature.outsideRight
+    anchors.right: parent.right
+    background-color: #ff4444

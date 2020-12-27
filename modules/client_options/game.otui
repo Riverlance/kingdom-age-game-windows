@@ -1,0 +1,17 @@
+Panel
+
+  OptionButton
+    id: changeLocale
+    !text: tr('Change language')
+    !tooltip: tr('Changes the game language.')
+    // Do not put it inside options.lua
+    @onClick: ClientLocales.createWindow()
+
+  OptionHorizontalSeparator
+
+  OptionCheckBox
+    id: showNpcDialogWindows
+    !text: tr('Show NPC dialog windows')
+    &tooltipAddons: { {{ text = tr('Shows a dialog window to choose an option by shortcuts,\ninstead messages. You can choose the recommended option\nby clicking or pressing \'Enter\', or cancel by pressing \'Esc\'.\nNote: It will not override all messages.') .. '\n', align = AlignLeft }}, {{ icon = "/images/game/tutorial/client/options/show_npc_dialog_windows", size = { width = 400, height = 250 }, align = AlignCenter }} }
+    $!first:
+      margin-top: 10

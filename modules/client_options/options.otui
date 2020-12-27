@@ -1,0 +1,103 @@
+OptionLabel < Label
+  anchors.left: parent.left
+  anchors.right: parent.right
+
+  $first:
+    anchors.top: parent.top
+
+  $!first:
+    anchors.top: prev.outsideBottom
+    margin-top: 10
+
+OptionScrollbar < HorizontalScrollBar
+  anchors.left: parent.left
+  anchors.right: parent.right
+  step: 1
+  show-value: true
+  @onValueChange: ClientOptions.setOption(self:getId(), self:getValue())
+
+  $first:
+    anchors.top: parent.top
+
+  $!first:
+    anchors.top: prev.outsideBottom
+    margin-top: 2
+
+OptionCheckBox < CheckBox
+  height: 16
+  anchors.left: parent.left
+  anchors.right: parent.right
+  @onCheckChange: ClientOptions.setOption(self:getId(), self:isChecked())
+
+  $first:
+    anchors.top: parent.top
+
+  $!first:
+    anchors.top: prev.outsideBottom
+    margin-top: 2
+
+OptionButtonBox < ButtonBoxRounded
+  anchors.top: prev.top
+  anchors.left: prev.outsideRight
+  margin-left: 2
+  padding: 5 10 5 10
+  text-auto-resize: true
+
+FirstOptionButtonBox < OptionButtonBox
+  anchors.top: prev.outsideBottom
+  anchors.left: prev.left
+  margin-top: 2
+  margin-left: 0
+
+OptionButton < Button
+  anchors.left: parent.left
+  text-auto-resize: true
+  @onClick: ClientOptions.setOption(self:getId(), true)
+
+  $first:
+    anchors.top: parent.top
+
+  $!first:
+    anchors.top: prev.outsideBottom
+    margin-top: 2
+
+OptionHorizontalSeparator < HorizontalSeparator
+  anchors.top: prev.outsideBottom
+  anchors.left: parent.left
+  anchors.right: parent.right
+  margin-top: 10
+
+
+
+MainWindow
+  id: optionsWindow
+  !text: tr('Options')
+  size: 480 447
+  &save: true
+
+  @onEnter: ClientOptions.hide()
+  @onEscape: ClientOptions.hide()
+
+  TabBarVertical
+    id: optionsTabBar
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    step: 10
+
+  Panel
+    id: optionsTabContent
+    anchors.top: parent.top
+    anchors.left: optionsTabBar.outsideRight
+    anchors.right: parent.right
+    anchors.bottom: okButton.outsideTop
+    margin-bottom: 10
+    margin-left: 10
+
+  Button
+    id: okButton
+    !text: tr('Ok')
+    width: 64
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    @onClick: ClientOptions.hide()

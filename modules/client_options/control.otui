@@ -1,0 +1,77 @@
+Panel
+
+  OptionCheckBox
+    id: classicControl
+    !text: tr('Classic control')
+    &tooltipAddons: { {{ text = tr('Changes the game shortcuts to classic mode.'), align = AlignLeft }} }
+
+  OptionCheckBox
+    id: autoChaseOverride
+    !text: tr('Allow auto-chase override.')
+    &tooltipAddons: { {{ text = tr('Your character stops to follow your target\nonce you walk.'), align = AlignLeft }} }
+
+  OptionHorizontalSeparator
+
+  OptionCheckBox
+    id: smoothWalk
+    !text: tr('Enable smooth walking')
+    &tooltipAddons: { {{ text = tr('Schedule next walk before finishing previous step.'), align = AlignLeft }} }
+    $!first:
+      margin-top: 10
+
+  OptionCheckBox
+    id: smartWalk
+    !text: tr('Enable smart walking')
+    &tooltipAddons: { {{ text = tr('Detect when to use diagonal step based on\nthe keys you are pressing.'), align = AlignLeft }} }
+
+  OptionCheckBox
+    id: bouncingKeys
+    !text: tr('Enable auto bouncing keys')
+    &tooltipAddons: { {{ text = tr('Whenever new key is pressed, will bounce\nprevious key.'), align = AlignLeft }} }
+
+  OptionHorizontalSeparator
+
+  OptionLabel
+    !text: tr('Walking keys sensitivity')
+
+  OptionScrollbar
+    id: walkingSensitivityScrollBar
+    minimum: 1
+    maximum: 100
+    symbol: %
+
+  OptionLabel
+    !text: tr('Walking keys auto-repeat delay')
+
+  OptionScrollbar
+    id: walkingRepeatDelayScrollBar
+    minimum: 10
+    maximum: 200
+    symbol: ms
+
+  OptionLabel
+    !text: tr('Auto bouncing keys interval')
+
+  OptionScrollbar
+    id: bouncingKeysDelayScrollBar
+    minimum: 100
+    maximum: 1000
+    symbol: ms
+
+  OptionLabel
+    !text: tr('Turn delay')
+
+  OptionScrollbar
+    id: turnDelay
+    minimum: 30
+    maximum: 250
+    symbol: ms
+
+  OptionLabel
+    !text: tr('Hotkey delay')
+
+  OptionScrollbar
+    id: hotkeyDelay
+    minimum: 30
+    maximum: 250
+    symbol: ms

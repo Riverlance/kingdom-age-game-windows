@@ -1,0 +1,60 @@
+Panel
+
+  OptionCheckBox
+    id: enableAudio
+    !text: tr('Enable audio')
+    &tooltipAddons: { {{ text = tr('Allows music, ambient sounds and effect sounds\nto be enabled.'), align = AlignLeft }} }
+
+  OptionHorizontalSeparator
+
+  OptionCheckBox
+    id: enableMusic
+    !text: tr('Enable music')
+    $!first:
+      margin-top: 10
+
+  OptionLabel
+    id: musicVolumeLabel
+    !text: tr('Music volume')
+
+  OptionScrollbar
+    id: musicVolume
+    minimum: 0
+    maximum: 100
+    symbol: %
+
+  OptionHorizontalSeparator
+
+  OptionCheckBox
+    id: enableSoundAmbient
+    !text: tr('Enable ambient sounds')
+    $!first:
+      margin-top: 10
+
+  OptionLabel
+    id: soundAmbientVolumeLabel
+    !text: tr('Ambient sounds volume')
+
+  OptionScrollbar
+    id: soundAmbientVolume
+    minimum: 0
+    maximum: 100
+    symbol: %
+
+  OptionHorizontalSeparator
+
+  OptionCheckBox
+    id: enableSoundEffect
+    !text: tr('Enable effect sounds')
+    $!first:
+      margin-top: 10
+
+  OptionLabel
+    id: soundEffectVolumeLabel
+    !text: tr('Effect sounds volume')
+
+  OptionScrollbar
+    id: soundEffectVolume
+    minimum: 0
+    maximum: 100
+    symbol: %

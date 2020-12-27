@@ -1,0 +1,14 @@
+Module
+  name: kalib
+  description: Contains Kingdom Age related classes
+  author: River
+  reloadable: false
+  website: https://github.com/edubart/otclient
+  dependencies: [ game_things ]
+
+  @onLoad: |
+    dofile 'const'
+    dofile 'util'
+    dofile 'function'
+
+    dofile 'player'

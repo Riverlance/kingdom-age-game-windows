@@ -1,0 +1,324 @@
+CharacterProgressBar < ProgressBar
+  anchors.left: parent.left
+  anchors.right: parent.right
+
+  $first:
+    anchors.top: parent.top
+    margin-top: 0
+
+  $!first:
+    anchors.top: prev.outsideBottom
+    margin-top: 1
+
+CharacterProgressBarValue < Label
+  anchors.fill: prev
+  font: verdana-11px-rounded
+  text-offset: 0 1
+  text-align: center
+  phantom: false
+
+ConditionWidget < UIWidget
+  size: 18 18
+
+  $!first:
+    margin-left: 2
+
+
+
+
+
+InventoryItem < Item
+  $on:
+    image-source: /images/ui/slot_item_blessed
+
+HeadSlot < InventoryItem
+  id: slot1
+  image-source: /images/ui/slot/head
+  &position: {x=65535, y=1, z=0}
+  $on:
+    image-source: /images/ui/slot/head_blessed
+
+BodySlot < InventoryItem
+  id: slot4
+  image-source: /images/ui/slot/body
+  &position: {x=65535, y=4, z=0}
+  $on:
+    image-source: /images/ui/slot/body_blessed
+
+LegSlot < InventoryItem
+  id: slot7
+  image-source: /images/ui/slot/legs
+  &position: {x=65535, y=7, z=0}
+  $on:
+    image-source: /images/ui/slot/legs_blessed
+
+FeetSlot < InventoryItem
+  id: slot8
+  image-source: /images/ui/slot/feet
+  &position: {x=65535, y=8, z=0}
+  $on:
+    image-source: /images/ui/slot/feet_blessed
+
+NeckSlot < InventoryItem
+  id: slot2
+  image-source: /images/ui/slot/neck
+  &position: {x=65535, y=2, z=0}
+  $on:
+    image-source: /images/ui/slot/neck_blessed
+
+LeftSlot < InventoryItem
+  id: slot6
+  image-source: /images/ui/slot/left_hand
+  &position: {x=65535, y=6, z=0}
+  $on:
+    image-source: /images/ui/slot/left_hand_blessed
+
+FingerSlot < InventoryItem
+  id: slot9
+  image-source: /images/ui/slot/finger
+  &position: {x=65535, y=9, z=0}
+  $on:
+    image-source: /images/ui/slot/finger_blessed
+
+BackSlot < InventoryItem
+  id: slot3
+  image-source: /images/ui/slot/back
+  &position: {x=65535, y=3, z=0}
+  $on:
+    image-source: /images/ui/slot/back_blessed
+
+RightSlot < InventoryItem
+  id: slot5
+  image-source: /images/ui/slot/right_hand
+  &position: {x=65535, y=5, z=0}
+  $on:
+    image-source: /images/ui/slot/right_hand_blessed
+
+AmmoSlot < InventoryItem
+  id: slot10
+  image-source: /images/ui/slot/ammo
+  &position: {x=65535, y=10, z=0}
+  $on:
+    image-source: /images/ui/slot/ammo_blessed
+
+
+
+
+
+CombatBox < ButtonBoxRounded
+  size: 20 20
+  icon-source: /images/ui/combat_mode/control
+
+FightOffensiveBox < CombatBox
+  icon-clip: 0 0 20 20
+
+  $checked:
+    icon-clip: 0 20 20 20
+
+FightBalancedBox < CombatBox
+  icon-clip: 20 0 20 20
+
+  $checked:
+    icon-clip: 20 20 20 20
+
+FightDefensiveBox < CombatBox
+  icon-clip: 40 0 20 20
+
+  $checked:
+    icon-clip: 40 20 20 20
+
+ChaseModeBox < CombatBox
+  icon-clip: 60 0 20 20
+
+  $checked:
+    icon-clip: 60 20 20 20
+
+SafeFightBox < CombatBox
+  icon-clip: 80 0 20 20
+
+  $checked:
+    icon-clip: 80 20 20 20
+
+MountButton < CombatBox
+  icon-clip: 100 0 20 20
+
+  $checked:
+    icon-clip: 100 20 20 20
+
+
+
+
+
+MiniWindow
+  id: inventoryWindow
+  !text: tr('Character')
+  icon: /images/ui/top_menu/healthinfo
+  height: 258
+  &save: true
+
+  BallMenuButton
+    id: ballButton
+    anchors.verticalCenter: lockButton.verticalCenter
+    anchors.right: lockButton.outsideLeft
+    @onClick: GameCharacter.onMiniWindowBallButton()
+
+  MiniWindowHeader
+    height: 52
+
+    CharacterProgressBar
+      id: healthBar
+      background-color: #ff4444
+
+    CharacterProgressBarValue
+      id: healthBarValueLabel
+
+    CharacterProgressBar
+      id: manaBar
+      background-color: #aa44ff
+
+      $!first:
+        anchors.top: healthBar.outsideBottom
+
+    CharacterProgressBarValue
+      id: manaBarValueLabel
+
+    CharacterProgressBar
+      id: experienceBar
+      background-color: #B6E866
+
+      $!first:
+        anchors.top: manaBar.outsideBottom
+
+    CharacterProgressBarValue
+      id: experienceBarValueLabel
+
+  MiniWindowContents
+    Panel
+      id: centerPanel
+      // Same width as outfitCreatureBox
+      width: 70
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
+
+    Panel
+      id: leftPanel
+      anchors.top: centerPanel.top
+      anchors.bottom: centerPanel.bottom
+      anchors.left: parent.left
+      anchors.right: centerPanel.outsideLeft
+
+    Panel
+      id: rightPanel
+      anchors.top: centerPanel.top
+      anchors.bottom: centerPanel.bottom
+      anchors.left: centerPanel.outsideRight
+      anchors.right: parent.right
+
+    Creature
+      id: outfitCreatureBox
+      size: 70 70
+      anchors.top: centerPanel.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 4
+      padding: 1
+      fixed-creature-size: true
+
+    HeadSlot
+      anchors.top: outfitCreatureBox.top
+      anchors.horizontalCenter: leftPanel.horizontalCenter
+
+    BodySlot
+      anchors.top: prev.outsideBottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 2
+
+    LegSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 2
+
+    FeetSlot
+      anchors.top: prev.bottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 2
+
+    BackSlot
+      anchors.top: outfitCreatureBox.top
+      anchors.horizontalCenter: rightPanel.horizontalCenter
+
+    NeckSlot
+      anchors.top: prev.outsideBottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 2
+
+    FingerSlot
+      anchors.top: prev.outsideBottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 2
+
+    AmmoSlot
+      anchors.top: prev.outsideBottom
+      anchors.horizontalCenter: prev.horizontalCenter
+      margin-top: 2
+
+    LeftSlot
+      anchors.top: outfitCreatureBox.outsideBottom
+      anchors.left: centerPanel.left
+      margin-top: 4
+
+    RightSlot
+      anchors.top: outfitCreatureBox.outsideBottom
+      anchors.right: centerPanel.right
+      margin-top: 4
+
+    GameLabel
+      id: combatControls
+      size: 64 42
+      anchors.top: prev.outsideBottom
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 4
+
+      layout:
+        type: grid
+        cell-size: 20 20
+        cell-spacing: 2
+        num-columns: 3
+        num-lines: 2
+
+      FightOffensiveBox
+        id: fightOffensiveBox
+        !tooltip: tr('Offensive combat mode')
+
+      FightBalancedBox
+        id: fightBalancedBox
+        !tooltip: tr('Balanced combat mode')
+
+      FightDefensiveBox
+        id: fightDefensiveBox
+        !tooltip: tr('Defensive combat mode')
+
+      ChaseModeBox
+        id: chaseModeBox
+        !tooltip: tr('Chase mode')
+
+      SafeFightBox
+        id: safeFightBox
+        !tooltip: tr('Secure mode')
+
+      MountButton
+        id: mountButton
+        !tooltip: tr('Mounting')
+
+  MiniWindowFooter
+    height: 14
+
+    Label
+      id: capLabel
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.left: parent.left
+      anchors.right: parent.right
+      padding: 2
+      font: verdana-11px-rounded
+      text-offset: 4 1
+      text-align: center

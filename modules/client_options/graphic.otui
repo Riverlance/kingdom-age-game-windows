@@ -1,0 +1,94 @@
+Panel
+
+  OptionLabel
+    !text: 'Graphic engine'
+
+  FirstOptionButtonBox
+    id: opengl1
+    text: OpenGL 1
+
+  OptionButtonBox
+    id: opengl2
+    text: OpenGL 2
+
+  OptionButtonBox
+    id: directx9
+    text: DirectX 9
+
+  OptionLabel
+    !text: 'Shader filter'
+    anchors.right: parent.horizontalCenter
+    margin-right: 10
+
+  ComboBox
+    id: shaderFilterComboBox
+    anchors.top: prev.outsideBottom
+    anchors.left: parent.left
+    anchors.right: prev.right
+    margin-top: 2
+
+  OptionLabel
+    !text: 'View mode'
+    $!first:
+      anchors.top: opengl1.outsideBottom
+    anchors.left: parent.horizontalCenter
+    margin-left: 10
+
+  ComboBox
+    id: viewModeComboBox
+    anchors.top: prev.outsideBottom
+    anchors.left: prev.left
+    anchors.right: parent.right
+    margin-top: 2
+
+  OptionLabel
+    id: gameScreenSizeLabel
+    !text: tr('Game screen viewport')
+
+  OptionScrollbar
+    id: gameScreenSize
+    step: 2
+    minimum: 11
+    maximum: 19
+    symbol: SQMs
+
+  OptionHorizontalSeparator
+
+  OptionCheckBox
+    id: dontStretchShrink
+    !text: tr('Lock game screen area')
+    &tooltipAddons: { {{ text = tr('You will not be able to stretch or shrink\ngame screen.\nIf enabled, shader filters will make no difference.\nNote:\nThe game screen viewport should be on minimum\nand hotkeybars should be disabled for this to work.'), align = AlignLeft }} }
+    $!first:
+      margin-top: 10
+
+  OptionCheckBox
+    id: fullscreen
+    !text: tr('Enable fullscreen mode')
+    &tooltipAddons: { {{ text = '(Ctrl+Shift+F)', align = AlignLeft }} }
+
+  OptionCheckBox
+    id: vsync
+    !text: tr('Enable Vsync (Vertical Synchronization)')
+    &tooltipAddons: { {{ text = tr('Limits FPS (Frames Per Second) at 60 for avoid CPU unneeded usage.'), align = AlignLeft }} }
+
+  OptionHorizontalSeparator
+
+  OptionLabel
+    id: backgroundFrameRateLabel
+    !text: tr('Game framerate limit')
+
+  OptionScrollbar
+    id: backgroundFrameRate
+    minimum: 10
+    maximum: 201
+    symbol: FPS
+
+  OptionLabel
+    id: foregroundFrameRateLabel
+    !text: tr('Interface framerate limit')
+
+  OptionScrollbar
+    id: foregroundFrameRate
+    minimum: 1
+    maximum: 61
+    symbol: FPS

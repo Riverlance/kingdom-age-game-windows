@@ -1,0 +1,238 @@
+PartyTabButton < TabButton
+  size: 20 20
+  icon-source: /images/ui/party_list/filter
+
+MiniWindow
+  id: partyWindow
+  !text: tr('Party List')
+  icon: /images/ui/top_menu/party_list
+  &save: true
+  // Cool size when the panel has 4 slots
+  &contentMinimumHeight: 45
+
+  ArrowMenuButton
+    !tooltip: tr('Show options')
+    anchors.verticalCenter: lockButton.verticalCenter
+    anchors.right: lockButton.outsideLeft
+    @onClick: GamePartyList.onClickArrowMenuButton(self)
+
+    $on:
+      !tooltip: tr('Hide options')
+
+  BallMenuButton
+    id: sortMenuButton
+    @onClick: GamePartyList.createSortMenu()
+
+  EmptyMenuButton
+    text: ?
+    text-align: center
+    phantom: false
+
+  MiniWindowHeader
+    height: 41
+
+    $on:
+      height: 0
+
+    @onGeometryChange: |
+      function(self)
+        local filterPanel = self:getChildById('filterPanel')
+        if not filterPanel then
+          return
+        end
+        local layout = filterPanel:getLayout()
+
+        local minWidth = 125 -- Same width of filterPanel
+        local maxWidth = 167 -- Width of all TabButton in line
+        local width = math.max(minWidth, math.min(self:getWidth(), maxWidth))
+        filterPanel:setWidth(width)
+
+        local lineHeight  = 20 -- Same height of filterPanel
+        local lines       = layout:getNumLines()
+        local cellSpacing = 1 -- Same cell-spacing of filterPanel
+        local height      = math.max(20, lineHeight * lines + cellSpacing * (lines - 1))
+        filterPanel:setHeight(height)
+        self:setHeight(height)
+      end
+
+    HorizontalSeparator
+      anchors.top: next.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      margin-top: 19
+
+    Panel
+      id: filterPanel
+      // See parent's onGeometryChange for the width
+      size: 125 20
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.horizontalCenter: parent.horizontalCenter
+      layout:
+        type: grid
+        cell-size: 20 20
+        cell-spacing: 1
+        flow: true
+
+      PartyTabButton
+        id: filterKnightPlayers
+        !tooltip: tr('Show knight players')
+        icon-clip: 40 0 20 20
+        @onClick: GamePartyList.onClickFilterKnightPlayers(self)
+
+        $on:
+          !tooltip: tr('Hide knight players')
+          icon-clip: 40 20 20 20
+
+      PartyTabButton
+        id: filterPaladinPlayers
+        !tooltip: tr('Show paladin players')
+        icon-clip: 60 0 20 20
+        @onClick: GamePartyList.onClickFilterPaladinPlayers(self)
+
+        $on:
+          !tooltip: tr('Hide paladin players')
+          icon-clip: 60 20 20 20
+
+      PartyTabButton
+        id: filterArcherPlayers
+        !tooltip: tr('Show archer players')
+        icon-clip: 80 0 20 20
+        @onClick: GamePartyList.onClickFilterArcherPlayers(self)
+
+        $on:
+          !tooltip: tr('Hide archer players')
+          icon-clip: 80 20 20 20
+
+      PartyTabButton
+        id: filterAssassinPlayers
+        !tooltip: tr('Show assassin players')
+        icon-clip: 100 0 20 20
+        @onClick: GamePartyList.onClickFilterAssassinPlayers(self)
+
+        $on:
+          !tooltip: tr('Hide assassin players')
+          icon-clip: 100 20 20 20
+
+      PartyTabButton
+        id: filterWizardPlayers
+        !tooltip: tr('Show wizard players')
+        icon-clip: 120 0 20 20
+        @onClick: GamePartyList.onClickFilterWizardPlayers(self)
+
+        $on:
+          !tooltip: tr('Hide wizard players')
+          icon-clip: 120 20 20 20
+
+      PartyTabButton
+        id: filterBardPlayers
+        !tooltip: tr('Show bard players')
+        icon-clip: 140 0 20 20
+        @onClick: GamePartyList.onClickFilterBardPlayers(self)
+
+        $on:
+          !tooltip: tr('Hide bard players')
+          icon-clip: 140 20 20 20
+
+      PartyTabButton
+        id: filterPlayers
+        !tooltip: tr('Show players')
+        icon-clip: 0 0 20 20
+        @onClick: GamePartyList.onClickFilterPlayers(self)
+
+        $on:
+          !tooltip: tr('Hide players')
+          icon-clip: 0 20 20 20
+
+      PartyTabButton
+        id: filterSummons
+        !tooltip: tr('Show summons')
+        icon-clip: 20 0 20 20
+        @onClick: GamePartyList.onClickFilterSummons(self)
+
+        $on:
+          !tooltip: tr('Hide summons')
+          icon-clip: 20 20 20 20
+
+  MiniWindowContents
+
+    Label
+      id: inviteeLabel
+      !text: tr('Invitees')
+      !tooltip: tr('Players that did not accept your request yet')
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      font: verdana-8px-antialised
+      text-offset: 4 1
+      phantom: false
+
+      $on:
+        visible: true
+        height: 14
+
+      $!on:
+        visible: false
+        height: 0
+
+    Panel
+      id: inviteePanel
+      focusable: false
+      anchors.top: prev.outsideBottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      layout:
+        type: verticalBox
+        fit-children: true
+
+      $on:
+        visible: true
+        padding: 4
+
+      $!on:
+        visible: false
+        height: 0
+        padding: 0
+
+    HorizontalSeparator
+      id: separator
+      anchors.top: prev.outsideBottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+
+      $on:
+        visible: true
+        height: 1
+
+      $!on:
+        visible: false
+        height: 0
+
+    Label
+      id: partyLabel
+      !text: tr('Members')
+      !tooltip: tr('Effective party members and their summons')
+      anchors.top: prev.outsideBottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      font: verdana-8px-antialised
+      text-offset: 4 1
+      phantom: false
+
+      $on:
+        visible: true
+        height: 14
+
+      $!on:
+        visible: false
+        height: 0
+
+    Panel
+      id: partyPanel
+      focusable: false
+      anchors.top: prev.outsideBottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      padding: 4
+      layout:
+        type: verticalBox
+        fit-children: true

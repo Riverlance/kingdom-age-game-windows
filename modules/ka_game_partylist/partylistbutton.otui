@@ -1,0 +1,51 @@
+PartyButton < CreatureButton
+  height: 38
+  &isPartyButton: true
+  &memberButtonHeight: 38
+  &inviteeButtonHeight: 20
+
+  CreatureButtonProgressBar
+    id: manaBar
+    anchors.top: healthBar.outsideBottom
+    anchors.left: healthBar.left
+    anchors.right: healthBar.right
+    background-color: #aa44ff
+
+  Label
+    id: pingLabel
+    anchors.top: manaBar.outsideBottom
+    anchors.right: manaBar.right
+    margin-top: 1
+    font: verdana-8px-antialised
+    text-align: right
+    text-auto-resize: true
+    phantom: true
+
+  Label
+    id: positionLabel
+    anchors.top: manaBar.outsideBottom
+    anchors.left: manaBar.left
+    margin-top: 1
+    font: verdana-8px-antialised
+    text-auto-resize: true
+    phantom: true
+    //phantom: false
+
+  UIWidget
+    anchors.top: creature.outsideBottom
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: creature.right
+
+  UIWidget
+    id: infoIcon
+    size: 9 9
+    anchors.centerIn: prev
+    image-source: /images/ui/party_list/info
+    phantom: false
+
+  $on:
+    visible: true
+
+  $!on:
+    visible: false

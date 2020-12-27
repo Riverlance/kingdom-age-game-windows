@@ -1,0 +1,201 @@
+HotkeyAssignWindow < MainWindow
+  id: assignWindow
+  !text: tr('Button Assign')
+  size: 360 150
+  @onEscape: self:destroy()
+
+  Label
+    !text: tr('Press the key you wish to add onto your hotkeys manager')
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.top: parent.top
+    text-auto-resize: true
+    text-align: left
+
+  Label
+    id: comboPreview
+    !text: tr('Current hotkey to add') .. ': ' .. tr('None')
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: prev.bottom
+    margin-top: 10
+    text-auto-resize: true
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: next.top
+    margin-bottom: 10
+
+  Button
+    id: addButton
+    !text: tr('Add')
+    width: 64
+    anchors.right: next.left
+    anchors.bottom: parent.bottom
+    margin-right: 10
+
+  Button
+    id: cancelButton
+    !text: tr('Cancel')
+    width: 64
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+
+
+
+MainWindow
+  id: hotkeysWindow
+  !text: tr('Hotkeys')
+  size: 350 525
+
+  @onEnter: GameHotkeys.ok()
+  @onEscape: GameHotkeys.cancel()
+
+  VerticalScrollBar
+    id: currentHotkeysScrollBar
+    height: 265
+    anchors.top: parent.top
+    anchors.right: parent.right
+    step: 14
+    pixels-scroll: true
+
+  TextList
+    id: currentHotkeys
+    vertical-scrollbar: currentHotkeysScrollBar
+    anchors.left: parent.left
+    anchors.right: prev.left
+    anchors.top: prev.top
+    anchors.bottom: prev.bottom
+    focusable: false
+
+  Button
+    id: resetHotkeyButton
+    width: 64
+    !text: tr('Reset')
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    margin-top: 8
+    enabled: false
+    @onClick: GameHotkeys.resetHotkey()
+
+  Button
+    id: applyHotkeyButton
+    !text: tr('Apply')
+    width: 64
+    anchors.top: prev.top
+    anchors.left: prev.right
+    margin-left: 5
+    enabled: false
+    @onClick: GameHotkeys.apply()
+
+  Button
+    id: removeHotkeyButton
+    !text: tr('Remove')
+    width: 64
+    anchors.top: prev.top
+    anchors.right: parent.right
+    enabled: false
+    @onClick: GameHotkeys.removeHotkey()
+
+  Button
+    id: addHotkeyButton
+    !text: tr('Add')
+    width: 64
+    anchors.top: prev.top
+    anchors.right: prev.left
+    margin-right: 5
+    @onClick: GameHotkeys.addHotkey()
+
+  HorizontalSeparator
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+
+  Label
+    id: hotkeyItemLabel
+    !text: tr('Item or Power') .. ":"
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    margin-top: 10
+    text-auto-resize: true
+
+  Item
+    id: itemPreview
+    anchors.top: prev.bottom
+    anchors.horizontalCenter: parent.horizontalCenter
+    margin-top: 3
+    virtual: true
+    draggable: true
+
+  HorizontalSeparator
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+
+  Label
+    id: hotkeyTextLabel
+    !text: tr('Text') .. ":"
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    margin-top: 10
+    text-auto-resize: true
+
+  CheckBox
+    id: sendAutomatically
+    !text: tr('Send automatically')
+    anchors.top: prev.top
+    anchors.right: parent.right
+    text-auto-resize: true
+    enabled:false
+    @onCheckChange: GameHotkeys.onSendAutomaticallyChange(self:isChecked())
+
+  TextEdit
+    id: hotkeyText
+    enabled: false
+    anchors.top: hotkeyTextLabel.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 3
+    @onTextChange: GameHotkeys.onHotkeyTextChange(self:getText())
+
+  HorizontalSeparator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: next.top
+    margin-bottom: 10
+
+  Button
+    id: resetButton
+    width: 72
+    !text: tr('Reset All')
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    @onClick: GameHotkeys.discardChanges()
+
+  Button
+    id: applyAllButton
+    !text: tr('Apply All')
+    width: 72
+    anchors.left: prev.right
+    anchors.bottom: parent.bottom
+    @onClick: GameHotkeys.applyChanges()
+    margin-left: 10
+
+  Button
+    id: okButton
+    !text: tr('Ok')
+    width: 64
+    anchors.right: next.left
+    anchors.bottom: parent.bottom
+    @onClick: GameHotkeys.ok()
+    margin-right: 10
+
+  Button
+    id: cancelButton
+    !text: tr('Cancel')
+    width: 64
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: GameHotkeys.cancel()

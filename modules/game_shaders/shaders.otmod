@@ -1,0 +1,9 @@
+Module
+  name: game_shaders
+  description: Manage game shaders
+  author: edubart
+  website: https://github.com/edubart/otclient
+  sandboxed: true
+  scripts: [ shaders.lua ]
+  @onLoad: GameShaders.init()
+  @onUnload: GameShaders.terminate()

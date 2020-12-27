@@ -1,0 +1,182 @@
+Panel
+
+  OptionLabel
+    !text: tr('Side panels priority')
+    !tooltip: tr('Side panels priority for the new mini windows\nto appear, including containers.')
+
+  FirstOptionButtonBox
+    id: panelsPriorityLeftSide
+    !text: tr('Left side')
+
+  OptionButtonBox
+    id: panelsPriorityRightSide
+    !text: tr('Right side')
+
+  OptionLabel
+    id: enabledLeftPanelsLabel
+    !text: tr('Left enabled panels')
+    anchors.right: parent.horizontalCenter
+    margin-right: 10
+
+  OptionScrollbar
+    id: enabledLeftPanels
+    anchors.right: prev.right
+    minimum: 0
+    maximum: 3
+
+  OptionLabel
+    id: enabledRightPanelsLabel
+    !text: tr('Right enabled panels')
+    $!first:
+      anchors.top: enabledLeftPanelsLabel.top
+      margin-top: 0
+    anchors.left: parent.horizontalCenter
+    margin-left: 10
+
+  OptionScrollbar
+    id: enabledRightPanels
+    anchors.left: prev.left
+    minimum: 0
+    maximum: 3
+
+  OptionLabel
+    id: leftFirstPanelWidthLabel
+    !text: tr('Left first panel width')
+    anchors.right: parent.horizontalCenter
+    margin-right: 10
+
+  OptionScrollbar
+    id: leftFirstPanelWidth
+    anchors.right: prev.right
+    minimum: 4
+    maximum: 10
+    symbol: slots
+
+  OptionLabel
+    id: rightFirstPanelWidthLabel
+    !text: tr('Right first panel width')
+    $!first:
+      anchors.top: leftFirstPanelWidthLabel.top
+      margin-top: 0
+    anchors.left: parent.horizontalCenter
+    margin-left: 10
+
+  OptionScrollbar
+    id: rightFirstPanelWidth
+    anchors.left: prev.left
+    minimum: 4
+    maximum: 10
+    symbol: slots
+
+  OptionLabel
+    id: leftSecondPanelWidthLabel
+    !text: tr('Left second panel width')
+    anchors.right: parent.horizontalCenter
+    margin-right: 10
+
+  OptionScrollbar
+    id: leftSecondPanelWidth
+    anchors.right: prev.right
+    minimum: 4
+    maximum: 10
+    symbol: slots
+
+  OptionLabel
+    id: rightSecondPanelWidthLabel
+    !text: tr('Right second panel width')
+    $!first:
+      anchors.top: leftSecondPanelWidthLabel.top
+      margin-top: 0
+    anchors.left: parent.horizontalCenter
+    margin-left: 10
+
+  OptionScrollbar
+    id: rightSecondPanelWidth
+    anchors.left: prev.left
+    minimum: 4
+    maximum: 10
+    symbol: slots
+
+  OptionLabel
+    id: leftThirdPanelWidthLabel
+    !text: tr('Left third panel width')
+    anchors.right: parent.horizontalCenter
+    margin-right: 10
+
+  OptionScrollbar
+    id: leftThirdPanelWidth
+    anchors.right: prev.right
+    minimum: 4
+    maximum: 10
+    symbol: slots
+
+  OptionLabel
+    id: rightThirdPanelWidthLabel
+    !text: tr('Right third panel width')
+    $!first:
+      anchors.top: leftThirdPanelWidthLabel.top
+      margin-top: 0
+    anchors.left: parent.horizontalCenter
+    margin-left: 10
+
+  OptionScrollbar
+    id: rightThirdPanelWidth
+    anchors.left: prev.left
+    minimum: 4
+    maximum: 10
+    symbol: slots
+
+  OptionHorizontalSeparator
+
+  OptionLabel
+    id: leftStickerLabel
+    !text: tr('Main left panel sticker')
+    anchors.right: parent.horizontalCenter
+    margin-right: 10
+
+  ComboBox
+    id: leftStickerComboBox
+    anchors.top: prev.outsideBottom
+    anchors.left: parent.left
+    anchors.right: prev.right
+    margin-top: 2
+
+  OptionLabel
+    id: leftStickerOpacityLabel
+    anchors.right: prev.right
+    !text: tr('Opacity')
+
+  OptionScrollbar
+    id: leftStickerOpacityScrollbar
+    anchors.right: prev.right
+    minimum: 0
+    maximum: 100
+    symbol: %
+
+  OptionLabel
+    id: rightStickerLabel
+    !text: tr('Main right panel sticker')
+    $!first:
+      anchors.top: leftStickerLabel.top
+      margin-top: 0
+    anchors.left: parent.horizontalCenter
+    margin-left: 10
+
+  ComboBox
+    id: rightStickerComboBox
+    anchors.top: prev.outsideBottom
+    anchors.left: prev.left
+    anchors.right: parent.right
+    margin-top: 2
+
+  OptionLabel
+    id: rightStickerOpacityLabel
+    anchors.left: prev.left
+    !text: tr('Opacity')
+
+  OptionScrollbar
+    id: rightStickerOpacityScrollbar
+    anchors.left: prev.left
+    minimum: 0
+    maximum: 100
+    symbol: %

@@ -1,0 +1,329 @@
+MiniWindow
+  id: minimapWindow
+  !text: tr('Minimap')
+  icon: /images/ui/top_menu/minimap
+  &save: true
+  &contentMinimumHeight: 117
+
+  BallMenuButton
+    id: ballButton
+    !tooltip: tr('Hide controllers')
+    anchors.verticalCenter: lockButton.verticalCenter
+    anchors.right: lockButton.outsideLeft
+    @onClick: |
+      local widget = GameMinimap.getMinimapBar()
+      if widget then
+        local hide = widget:isVisible()
+        widget:setVisible(not hide)
+
+        if hide then
+          widget:setWidth(0)
+          self:setTooltip(tr('Show controllers'))
+        else
+          widget:setWidth(70)
+          self:setTooltip(tr('Hide controllers'))
+        end
+      end
+
+  EmptyMenuButton
+    text: ?
+    text-align: center
+    phantom: false
+    !tooltip: tr('Hold the left mouse button and drag-and-drop\nor press the \'%s\' holding \'%s\' for navigate.\n\nScroll the mouse wheel for zoom.\nDo the same holding \'%s\' for change the floor level.\n\nPress the right mouse button for create map marks.\n\nPress \'%s\' for view the entire game map.', 'Arrow Keys', 'Alt', 'Ctrl', 'Ctrl+Shift+M')
+
+  MiniWindowContents
+
+    Minimap
+      id: minimap
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      anchors.left: parent.left
+      anchors.right: minimapBar.outsideLeft
+      padding: 1
+      border: 1 #353433
+
+    Label
+      id: positionLabel
+      anchors.bottom: parent.bottom
+      anchors.left: parent.left
+      anchors.right: minimapBar.outsideLeft
+      margin: 1
+      background-color: #000000bb
+      color: #ffffff
+      text-align: center
+      text-auto-resize: true
+      font: verdana-8px-antialised
+      text-wrap: true
+      phantom: false
+
+    OptionScrollbar
+      id: minimapOpacity
+      width: 100
+      anchors.bottom: positionLabel.outsideTop
+      anchors.left: parent.left
+      anchors.right: minimapBar.outsideLeft
+      margin-bottom: 1
+      minimum: 10
+      maximum: 100
+      symbol: %
+      visible: false
+      @onValueChange: GameMinimap.getMinimapWidget():setOpacity(self:getValue() / 100)
+
+      $!first:
+        anchors.top: none
+
+    UIWidget
+      id: minimapBar
+      // See ballButton for width
+      width: 70
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      anchors.right: parent.right
+      focusable: false
+
+      // Widget instead border because it keeps above minimap icons
+      VerticalSeparatorLeft
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        background-color: #98885e
+
+      UIWidget
+        id: minimapBarBackground
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.left: prev.outsideRight
+        anchors.right: parent.right
+        image-source: /images/ui/_background/default_stone_grey
+        image-repeated: true
+
+      UIWidget
+        id: compass
+        image-source: /images/ui/minimap/compass
+        anchors.top: parent.top
+        anchors.right: parent.right
+
+        UIButton
+          id: extraIconsButton
+          size: 15 15
+          !tooltip: tr('Show minimap extra icons\n(e.g., party player icon)')
+          anchors.top: parent.top
+          anchors.left: parent.left
+          margin-left: 4
+          image-source: /images/ui/minimap/controllers_extra
+          image-clip: 30 0 15 15
+          @onClick: ClientOptions.toggleOption('showMinimapExtraIcons')
+
+          $hover:
+            image-clip: 30 15 15 15
+
+          $pressed:
+            image-clip: 30 30 15 15
+
+          $on:
+            !tooltip: tr('Hide minimap extra icons\n(e.g., party player icon)')
+            image-clip: 45 0 15 15
+
+          $on hover:
+            image-clip: 45 15 15 15
+
+          $on pressed:
+            image-clip: 45 30 15 15
+
+        UIButton
+          id: buttonMoveNorth
+          !tooltip: tr('Move to north')
+          anchors.top: parent.top
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-top: 8
+          size: 21 12
+          image-source: /images/ui/_button/arrow_vertical
+          image-clip: 21 0 21 12
+
+          $hover:
+            image-clip: 21 12 21 12
+
+          $pressed:
+            image-clip: 21 24 21 12
+
+          @onClick: GameMinimap.getMinimapWidget():move(0,1)
+
+        UIButton
+          id: fullMapButton
+          size: 15 15
+          !tooltip: tr('Show entire game map (%s)', 'Ctrl+Shift+M')
+          anchors.top: parent.top
+          anchors.right: parent.right
+          margin-right: 4
+          image-source: /images/ui/minimap/controllers_extra
+          image-clip: 0 0 15 15
+          @onClick: GameMinimap.toggleFullMap()
+
+          $hover:
+            image-clip: 0 15 15 15
+
+          $pressed:
+            image-clip: 0 30 15 15
+
+          $on:
+            !tooltip: tr('Hide entire game map (%s)', 'Ctrl+Shift+M')
+            image-clip: 15 0 15 15
+
+          $on hover:
+            image-clip: 15 15 15 15
+
+          $on pressed:
+            image-clip: 15 30 15 15
+
+        UIButton
+          id: buttonMoveWest
+          !tooltip: tr('Move to west')
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.left: parent.left
+          margin-left: 8
+          size: 12 21
+          image-source: /images/ui/_button/arrow_horizontal
+          image-clip: 0 0 12 21
+
+          $hover:
+            image-clip: 0 21 12 21
+
+          $pressed:
+            image-clip: 0 42 12 21
+
+          @onClick: GameMinimap.getMinimapWidget():move(1,0)
+
+        UIButton
+          id: buttonMoveCenter
+          !tooltip: tr('Move to centralized position')
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.horizontalCenter: parent.horizontalCenter
+          size: 22 22
+          image-source: /images/ui/minimap/btn_compass
+          image-clip: 0 0 22 22
+
+          $hover:
+            image-clip: 0 22 22 22
+
+          $pressed:
+            image-clip: 0 44 22 22
+
+          @onClick: |
+            local widget = GameMinimap.getMinimapWidget()
+            local zoom = widget:getZoom()
+            widget:reset()
+            widget:setZoom(zoom)
+            GameMinimap.updateCameraPosition()
+
+        UIButton
+          id: buttonMoveEast
+          !tooltip: tr('Move to east')
+          anchors.verticalCenter: parent.verticalCenter
+          anchors.right: parent.right
+          margin-right: 7
+          size: 12 21
+          image-source: /images/ui/_button/arrow_horizontal
+          image-clip: 12 0 12 21
+
+          $hover:
+            image-clip: 12 21 12 21
+
+          $pressed:
+            image-clip: 12 42 12 21
+
+          @onClick: GameMinimap.getMinimapWidget():move(-1,0)
+
+        UIButton
+          id: buttonMoveSouth
+          !tooltip: tr('Move to south')
+          anchors.bottom: parent.bottom
+          anchors.horizontalCenter: parent.horizontalCenter
+          margin-bottom: 7
+          size: 21 12
+          image-source: /images/ui/_button/arrow_vertical
+          image-clip: 0 0 21 12
+
+          $hover:
+            image-clip: 0 12 21 12
+
+          $pressed:
+            image-clip: 0 24 21 12
+
+          @onClick: GameMinimap.getMinimapWidget():move(0,-1)
+
+      UIWidget
+        id: controllersArea
+        anchors.top: prev.outsideBottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        size: 50 50
+
+        UIButton
+          id: buttonZoomOut
+          !tooltip: tr('Zoom out')
+          anchors.bottom: parent.bottom
+          anchors.right: parent.right
+          size: 24 24
+          image-source: /images/ui/minimap/controllers
+          image-clip: 72 0 24 24
+
+          $hover:
+            image-clip: 72 24 24 24
+
+          $pressed:
+            image-clip: 72 48 24 24
+
+          @onClick: GameMinimap.getMinimapWidget():zoomOut()
+
+        UIButton
+          id: buttonZoomIn
+          !tooltip: tr('Zoom in')
+          anchors.bottom: prev.top
+          anchors.right: parent.right
+          margin-bottom: 2
+          size: 24 24
+          image-source: /images/ui/minimap/controllers
+          image-clip: 48 0 24 24
+
+          $hover:
+            image-clip: 48 24 24 24
+
+          $pressed:
+            image-clip: 48 48 24 24
+
+          @onClick: GameMinimap.getMinimapWidget():zoomIn()
+
+        UIButton
+          id: buttonMoveDown
+          !tooltip: tr('Down floor')
+          anchors.bottom: parent.bottom
+          anchors.right: prev.left
+          margin-right: 2
+          size: 24 24
+          image-source: /images/ui/minimap/controllers
+          image-clip: 24 0 24 24
+
+          $hover:
+            image-clip: 24 24 24 24
+
+          $pressed:
+            image-clip: 24 48 24 24
+
+          @onClick: GameMinimap.getMinimapWidget():floorDown(1)
+
+        UIButton
+          id: buttonMoveUp
+          !tooltip: tr('Up floor')
+          anchors.bottom: prev.top
+          anchors.right: prev.right
+          margin-bottom: 2
+          size: 24 24
+          image-source: /images/ui/minimap/controllers
+          image-clip: 0 0 24 24
+
+          $hover:
+            image-clip: 0 24 24 24
+
+          $pressed:
+            image-clip: 0 48 24 24
+
+          @onClick: GameMinimap.getMinimapWidget():floorUp(1)

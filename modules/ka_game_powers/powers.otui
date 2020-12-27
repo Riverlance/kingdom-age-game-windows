@@ -1,0 +1,101 @@
+PowerTabButton < TabButton
+  size: 20 20
+  icon-source: /images/ui/power/filter
+
+
+
+
+
+MiniWindow
+  id: powersWindow
+  !text: tr('Powers')
+  icon: /images/ui/top_menu/powers
+  &save: true
+  &contentMinimumHeight: 42
+
+  ArrowMenuButton
+    !tooltip: tr('Show options')
+    anchors.verticalCenter: lockButton.verticalCenter
+    anchors.right: lockButton.outsideLeft
+    @onClick: GamePowers.onClickArrowMenuButton(self)
+
+    $on:
+      !tooltip: tr('Hide options')
+
+  BallMenuButton
+    id: sortMenuButton
+    @onClick: GamePowers.createSortMenu()
+
+  EmptyMenuButton
+    text: ?
+    text-align: center
+    phantom: false
+    &tooltipAddons: { {{ text = '1. Powers should be used on hotkeys.\n\n2. Power hotkeys can be pressed to boost it\'s power\n- it will increase the mana\'s cost also.\n\n3. Some powers needs the mouse on game screen to target.\n', align = AlignLeft }}, {{ text = 'Note: All powers shows informations according to your\ncharacter\'s status. So, your attributes, equipments and\nothers can change these informations in real time. Also,\ndamages may change according to target\'s defense.', color = '#E6DB74', align = AlignLeft }} }
+
+  MiniWindowHeader
+    height: 20
+
+    $on:
+      height: 0
+
+    Panel
+      id: filterPanel
+      size: 86 20
+      anchors.horizontalCenter: parent.horizontalCenter
+      anchors.verticalCenter: parent.verticalCenter
+      layout:
+        type: horizontalBox
+        spacing: 2
+
+      PowerTabButton
+        id: filterOffensive
+        !tooltip: tr('Show offensive powers')
+        icon-clip: 0 0 20 20
+        @onClick: GamePowers.onClickFilterOffensive(self)
+
+        $on:
+          !tooltip: tr('Hide offensive powers')
+          icon-clip: 0 20 20 20
+
+      PowerTabButton
+        id: filterDefensive
+        !tooltip: tr('Show defensive powers')
+        icon-clip: 20 0 20 20
+        @onClick: GamePowers.onClickFilterDefensive(self)
+
+        $on:
+          !tooltip: tr('Hide defensive powers')
+          icon-clip: 20 20 20 20
+
+      PowerTabButton
+        id: filterNonPremium
+        !tooltip: tr('Show non premium powers')
+        icon-clip: 40 0 20 20
+        @onClick: GamePowers.onClickFilterNonPremium(self)
+
+        $on:
+          !tooltip: tr('Hide non premium powers')
+          icon-clip: 40 20 20 20
+
+      PowerTabButton
+        id: filterPremium
+        !tooltip: tr('Show premium powers')
+        icon-clip: 60 0 20 20
+        @onClick: GamePowers.onClickFilterPremium(self)
+
+        $on:
+          !tooltip: tr('Hide premium powers')
+          icon-clip: 60 20 20 20
+
+  MiniWindowContents
+
+    Panel
+      id: powersPanel
+      focusable: false
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      padding: 4
+      layout:
+        type: verticalBox
+        fit-children: true

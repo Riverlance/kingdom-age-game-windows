@@ -1,0 +1,119 @@
+ConditionTabButton < TabButton
+  size: 20 20
+  icon-source: /images/ui/condition/filter
+
+MiniWindow
+  id: conditionWindow
+  !text: tr('Conditions')
+  icon: /images/ui/top_menu/conditions
+  &save: true
+  &contentMinimumHeight: 30
+
+  ArrowMenuButton
+    !tooltip: tr('Show options')
+    anchors.verticalCenter: lockButton.verticalCenter
+    anchors.right: lockButton.outsideLeft
+    @onClick: GameConditions.onClickArrowMenuButton(self)
+
+    $on:
+      !tooltip: tr('Hide options')
+
+  BallMenuButton
+    id: sortMenuButton
+    @onClick: GameConditions.createSortMenu()
+
+  MiniWindowHeader
+    height: 20
+
+    $on:
+      height: 0
+
+    Panel
+      id: filterPanel
+      size: 108 20
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.horizontalCenter: parent.horizontalCenter
+      layout:
+        type: horizontalBox
+        spacing: 2
+
+      ConditionTabButton
+        id: filterDefault
+        !tooltip: tr('Show default conditions')
+        icon-clip: 0 0 20 20
+        @onClick: GameConditions.onClickFilterDefault(self)
+
+        $on:
+          !tooltip: tr('Hide default conditions')
+          icon-clip: 0 20 20 20
+
+      ConditionTabButton
+        id: filterSelfPowers
+        !tooltip: tr('Show conditions caused by your powers')
+        icon-clip: 20 0 20 20
+        @onClick: GameConditions.onClickFilterSelfPowers(self)
+
+        $on:
+          !tooltip: tr('Hide conditions caused by your powers')
+          icon-clip: 20 20 20 20
+
+      ConditionTabButton
+        id: filterOtherPowers
+        !tooltip: tr('Show conditions caused by powers from others')
+        icon-clip: 40 0 20 20
+        @onClick: GameConditions.onClickFilterOtherPowers(self)
+
+        $on:
+          !tooltip: tr('Hide conditions caused by powers from others')
+          icon-clip: 40 20 20 20
+
+      ConditionTabButton
+        id: filterAggressive
+        !tooltip: tr('Show aggressive conditions')
+        icon-clip: 60 0 20 20
+        @onClick: GameConditions.onClickFilterAggressive(self)
+
+        $on:
+          !tooltip: tr('Hide aggressive conditions')
+          icon-clip: 60 20 20 20
+
+      ConditionTabButton
+        id: filterNonAggressive
+        !tooltip: tr('Show non aggressive conditions')
+        icon-clip: 80 0 20 20
+        @onClick: GameConditions.onClickFilterNonAggressive(self)
+
+        $on:
+          !tooltip: tr('Hide non aggressive conditions')
+          icon-clip: 80 20 20 20
+
+  MiniWindowContents
+
+    Panel
+      id: conditionPanel
+      focusable: false
+      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.right: parent.right
+      padding: 5
+      layout:
+        type: verticalBox
+        fit-children: true
+
+  MiniWindowFooter
+    image-source: /images/ui/_background/default_stone_blue
+    height: 23
+
+    $on:
+      height: 0
+
+    Panel
+      id: defaultConditionPanel
+      height: 18
+      anchors.verticalCenter: parent.verticalCenter
+      anchors.left: parent.left
+      anchors.right: parent.right
+      layout:
+        type: horizontalBox
+      margin-top: 2
+      margin-bottom: 2

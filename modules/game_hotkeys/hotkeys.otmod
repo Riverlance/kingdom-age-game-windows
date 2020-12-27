@@ -1,0 +1,16 @@
+Module
+  name: game_hotkeys
+  description: Manage client hotkeys
+  author: andrefaramir, BeniS
+  website: https://github.com/edubart/otclient
+  sandboxed: true
+  scripts: [ hotkeys, powerhotkeys ]
+  dependencies: [ client_topmenu, game_interface, game_console ]
+
+  @onLoad: |
+    GameHotkeys.init()
+    GamePowerHotkeys.init()
+
+  @onUnload: |
+    GamePowerHotkeys.terminate()
+    GameHotkeys.terminate()

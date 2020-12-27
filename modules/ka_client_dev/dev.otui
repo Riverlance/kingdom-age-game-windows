@@ -1,0 +1,78 @@
+// Note: Check commands.lua of modules.client_terminal
+
+DevCheckBox < CheckBox
+
+  $first:
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: parent.right
+
+  $!first:
+    anchors.top: prev.outsideBottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 4
+
+DevLightButton < LightButton
+  anchors.top: prev.outsideBottom
+  anchors.left: parent.left
+  anchors.right: parent.right
+  margin-top: 4
+
+
+
+
+
+MainWindow
+  id: developmentWindow
+  !text: tr('Development')
+  size: 150 180
+  focusable: false
+
+  DevCheckBox
+    id: localCheckBox
+    !text: tr('Local Server')
+    !tooltip: tr('Log on server from local host')
+    color: darkTeal
+
+  DevCheckBox
+    id: devCheckBox
+    !text: tr('Dev Server (ports)')
+    !tooltip: tr('Log on server from devlopment host')
+    color: darkTeal
+
+  DevCheckBox
+    id: drawBoxesCheckBox
+    !text: tr('Draw Boxes')
+    !tooltip: tr('Draw debug boxes')
+    color: green
+
+  DevCheckBox
+    id: hideMapCheckBox
+    !text: tr('Hide Map')
+    !tooltip: tr('Hide game map panel')
+    color: orange
+
+  HorizontalSeparator
+    anchors.top: prev.outsideBottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 10
+
+  DevLightButton
+    !text: tr('Terminal')
+    !tooltip: tr('Show terminal')
+    margin-top: 10
+    @onClick: |
+      ClientTerminal.toggle()
+      ClientTerminal.popWindow(false)
+
+  DevLightButton
+    !text: tr('Ping')
+    !tooltip: tr('Start ping test at terminal')
+    @onClick: |
+      if not ClientTerminal.isVisible() then
+        ClientTerminal.show()
+        ClientTerminal.popWindow(false)
+      end
+      ping()
